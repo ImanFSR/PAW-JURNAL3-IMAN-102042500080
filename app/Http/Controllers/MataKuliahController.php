@@ -74,7 +74,7 @@ class MataKuliahController extends Controller
         if (!$user->isDosen()) {
             abort( 'Akses ditolak. Pembuatan mata kuliah baru hanya dapat dilakukan oleh Dosen.');
         }
-        TODO 4 : Validasi data mata kuliah sebelum disimpan.
+        // TODO 4 : Validasi data mata kuliah sebelum disimpan.
         // Hint: isi pada bagian "?"
         // - Gunakan validasi Laravel pada objek Request.
         // - Kode, nama, SKS, dan semester harus diisi.
@@ -82,16 +82,16 @@ class MataKuliahController extends Controller
         // - Deskripsi boleh dikosongkan.
         // - SKS harus berupa angka dalam rentang yang ditentukan.
         $validated = $request->validate([
-            ? => ['required', 'string', 'max:20', 'unique:courses,kode_mk'],
-            ? => ['required', 'string', 'max:255'],
-            ? => ['nullable', 'string', 'max:2000'],
-            ? => ['required', 'integer', 'between:1,6'],
-            ? => ['required', 'string', 'max:50'],
+            'kode_mk' => ['required', 'string', 'max:20', 'unique:courses,kode_mk'],
+            'nama_mk' => ['required', 'string', 'max:255'],
+            'deskripsi' => ['nullable', 'string', 'max:2000'],
+            'sks' => ['required', 'integer', 'between:1,6'],
+            'semester' => ['required', 'string', 'max:50'],
         ], [
-            ?=> 'Kode mata kuliah wajib diisi.',
-            ? => 'Kode mata kuliah sudah terdaftar. Gunakan kode lain.',
-            ? => 'Nama mata kuliah wajib diisi.',
-            ? => 'Jumlah SKS wajib diisi.',
+            'kode_mk.required' => 'Kode mata kuliah wajib diisi.',
+            'kode_mk.unique' => 'Kode mata kuliah sudah terdaftar. Gunakan kode lain.',
+            'nama_mk.required' => 'Nama mata kuliah wajib diisi.',
+            'sks.required' => 'Jumlah SKS wajib diisi.',
             'sks.between' => 'Jumlah SKS harus berada dalam rentang 1 hingga 6.',
             'semester.required' => 'Semester perkuliahan wajib diisi.',
         ]);
@@ -119,11 +119,11 @@ class MataKuliahController extends Controller
             }
 
             $course->load([
-                ?,
-                ?,
-                ?,
-                ? => fn($q) => $q->orderBy('name'),
-                ? => fn($q) => $q->orderBy('course_user.created_at', 'desc'),
+                'dosen',
+                'materials',
+                'assignments.submissions.user',
+                'approvedStudents' => fn($q) => $q->orderBy('name'),
+                'pendingStudents' => fn($q) => $q->orderBy('course_user.created_at', 'desc'),
             ]);
 
             return view('courses.show', compact('course'));

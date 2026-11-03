@@ -24,16 +24,67 @@
                 @csrf
                 @method('PUT')
 
+                <!-- Baris 1: Kode MK & Nama MK -->
                 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.25rem;">
-                     TODO 7: Buat input untuk memperbarui data mata kuliah.
-                     {{-- Petunjuk:
-                     - Buat field kode MK, nama MK, SKS, dan semester.
-                     - Tampilkan nilai data yang sedang diedit dari variabel $course.
-                     - Gunakan old() agar isian tetap muncul jika validasi gagal.
-                     - Tampilkan pesan error validasi dengan directive Blade.
-                     - Pilih jenis input yang sesuai untuk tiap field. --}}
+                    <!-- Kode MK -->
+                    <div class="form-group">
+                        <label for="kode_mk" class="form-label">
+                            Kode Mata Kuliah <span class="required-indicator">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="kode_mk" 
+                            id="kode_mk" 
+                            class="form-control @error('kode_mk') is-invalid @enderror" 
+                            value="{{ old('kode_mk', $course->kode_mk) }}" 
+                            required
+                        >
+                        @error('kode_mk')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                    
+                    <!-- Nama MK -->
+                    <div class="form-group">
+                        <label for="nama_mk" class="form-label">
+                            Nama Mata Kuliah <span class="required-indicator">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            name="nama_mk" 
+                            id="nama_mk" 
+                            class="form-control @error('nama_mk') is-invalid @enderror" 
+                            value="{{ old('nama_mk', $course->nama_mk) }}" 
+                            required
+                        >
+                        @error('nama_mk')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Baris 2: SKS & Semester -->
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.25rem;">
+                    <!-- SKS -->
+                    <div class="form-group">
+                        <label for="sks" class="form-label">
+                            Jumlah SKS <span class="required-indicator">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            name="sks" 
+                            id="sks" 
+                            min="1" 
+                            max="6" 
+                            class="form-control @error('sks') is-invalid @enderror" 
+                            value="{{ old('sks', $course->sks) }}" 
+                            required
+                        >
+                        @error('sks')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Semester -->
                     <div class="form-group">
                         <label for="semester" class="form-label">

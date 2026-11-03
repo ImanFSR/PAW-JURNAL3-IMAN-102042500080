@@ -16,7 +16,24 @@ class DatabaseSeeder extends Seeder
         // - Gunakan email sebagai identitas akun.
         // - Lengkapi nama, password yang di-hash, role Dosen,dan nomor induk.
         User::updateOrCreate(
-            [?],
+            ['email' => 'dosen@telkomuniversity.ac.id'],
+            [
+                'name' => 'Dr. Ir. Budi Santoso, M.T.',
+                'password' => Hash::make('password'),
+                'role' => 'dosen',
+                'nomor_induk' => '198501012010121001',
+            ]
+        );
+
+        // Akun Mahasiswa
+        User::updateOrCreate(
+            ['email' => 'mahasiswa@student.telkomuniversity.ac.id'],
+            [
+                'name' => 'Ahmad Raihan Arifinza',
+                'password' => Hash::make('password'),
+                'role' => 'mahasiswa',
+                'nomor_induk' => '1202220001',
+            ]
         );
     }
 }

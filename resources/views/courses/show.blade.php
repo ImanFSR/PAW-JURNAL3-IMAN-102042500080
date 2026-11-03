@@ -38,12 +38,13 @@
         </div>
         TODO 8 : Tampilkan nama dan deskripsi mata kuliah.
         <!-- gunakan data dari variabel $course dan sintaks Blade. -->
+        <!-- TODO 8 : Tampilkan nama dan deskripsi mata kuliah -->
         <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--slate-900); margin-bottom: 0.75rem; line-height: 1.3;">
-            {{ YANG INI NAMA MK }}
+            {{ $course->nama_mk }}
         </h1>
 
         <p style="font-size: 0.9375rem; color: var(--slate-600); line-height: 1.6; margin-bottom: 1.25rem;">
-            {{ YANG INI DESKRIPSI ?: 'Belum ada deskripsi mata kuliah yang ditambahkan.' }}
+            {{ $course->deskripsi ?: 'Belum ada deskripsi mata kuliah yang ditambahkan.' }}
         </p>
 
         <div style="padding-top: 1rem; border-top: 1px solid var(--slate-100); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8125rem; color: var(--slate-500);">

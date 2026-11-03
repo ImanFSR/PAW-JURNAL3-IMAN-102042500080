@@ -17,13 +17,18 @@ return new class extends Migration
         // TODO 2: Lengkapi kolom tabel mata kuliah
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            
+            $table->foreignId('dosen_id')->constrained('users')->cascadeOnDelete();
+            $table->string('kode_mk', 20)->unique();
+            $table->string('nama_mk');
+            $table->text('deskripsi')->nullable();
+            $table->unsignedTinyInteger('sks')->default(3);
+            $table->string('semester', 50);
+            $table->timestamps();
             // gunakan tipe string untuk data teks pendek.
             // Contoh pola: // $table->string('nama_kolom');
             // salah satu kolom harus memiliki nilai unik.
             // hubungkan dosen pengampu ke tabel users.
 
-            $table->timestamps();
         });
 
         // Tabel Enrollment Mahasiswa

@@ -19,6 +19,12 @@ class MataKuliah extends Model
 
     // TODO 3: Tentukan atribut yang boleh diisi melalui form CRUD.
     protected $fillable = [
+        'dosen_id',
+        'kode_mk',
+        'nama_mk',
+        'deskripsi',
+        'sks',
+        'semester',
         // lihat nama kolom pada tabel courses.
         // Contoh format: // 'kode_mk','nama_mk'
     ];

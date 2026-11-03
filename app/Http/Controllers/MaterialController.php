@@ -41,6 +41,22 @@ class MaterialController extends Controller
         // 1. Periksa kelayakan input (judul, konten, minggu_ke, urutan) menggunakan validasi Laravel pada $request.
         // 2. Simpan materi baru yang terhubung ke mata kuliah ($course) melalui model Material atau relasi $course->materials().
         // 3. Kembalikan redirect ke route detail mata kuliah ('courses.show') dengan pesan sukses.
+        $validated = $request->validate([
+            'judul' => ['required', 'string', 'max:255'],
+            'konten' => ['required', 'string'],
+            'minggu_ke' => ['required', 'integer', 'min:1'],
+            'urutan' => ['required', 'integer', 'min:0'],
+        ], [
+            'judul.required' => 'Judul materi wajib diisi.',
+            'konten.required' => 'Konten materi wajib diisi.',
+            'minggu_ke.required' => 'Minggu pertemuan wajib diisi.',
+            'urutan.required' => 'Urutan materi wajib diisi.',
+        ]);
+
+        $course->materials()->create($validated);
+
+        return redirect()->route('courses.show', $course->id)
+            ->with('success', 'Materi pembelajaran berhasil ditambahkan.');
     }
 
     public function edit(Material $material): View|RedirectResponse
@@ -71,6 +87,22 @@ class MaterialController extends Controller
         // 1. Periksa kelayakan input (judul, konten, minggu_ke, urutan) menggunakan validasi Laravel pada $request.
         // 2. Perbarui data materi ($material) menggunakan data yang telah divalidasi.
         // 3. Kembalikan redirect ke route detail mata kuliah ('courses.show') terkait dengan pesan sukses.
+        $validated = $request->validate([
+            'judul' => ['required', 'string', 'max:255'],
+            'konten' => ['required', 'string'],
+            'minggu_ke' => ['required', 'integer', 'min:1'],
+            'urutan' => ['required', 'integer', 'min:0'],
+        ], [
+            'judul.required' => 'Judul materi wajib diisi.',
+            'konten.required' => 'Konten materi wajib diisi.',
+            'minggu_ke.required' => 'Minggu pertemuan wajib diisi.',
+            'urutan.required' => 'Urutan materi wajib diisi.',
+        ]);
+
+        $material->update($validated);
+
+        return redirect()->route('courses.show', $material->course_id)
+            ->with('success', 'Materi pembelajaran berhasil diperbarui.');
     }
 
     public function destroy(Material $material): RedirectResponse
@@ -88,5 +120,10 @@ class MaterialController extends Controller
         // 1. Simpan id mata kuliah ($material->course_id) sebelum materi dihapus agar rute redirect tetap valid.
         // 2. Hapus data materi ($material) dari basis data.
         // 3. Kembalikan redirect ke route detail mata kuliah ('courses.show') dengan pesan sukses.
+        $courseId = $material->course_id;
+        $material->delete();
+
+        return redirect()->route('courses.show', $courseId)
+            ->with('success', 'Materi pembelajaran berhasil dihapus.');
     }
 }

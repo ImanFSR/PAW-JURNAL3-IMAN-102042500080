@@ -31,6 +31,75 @@
                      - Gunakan old() agar isian tidak hilang setelah validasi gagal.
                      - Tampilkan pesan error validasi menggunakan directive Blade.
                      - Pola umum input teks: <input type="text" name="nama_field"> --}}
+                     <!-- Baris 1: Kode MK & Nama MK -->
+                    <div class="form-group">
+                        <label for="kode_mk" class="form-label">Kode Mata Kuliah <span style="color: var(--danger-600, red); font-weight: bold;">*</span></label>
+                        <input 
+                            type="text" 
+                            name="kode_mk" 
+                            id="kode_mk" 
+                            class="form-control @error('kode_mk') is-invalid @enderror" 
+                            value="{{ old('kode_mk') }}" 
+                            placeholder="Contoh: CS101"
+                            required
+                        >
+                        @error('kode_mk')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nama_mk" class="form-label">Nama Mata Kuliah <span style="color: var(--danger-600, red); font-weight: bold;">*</span></label>
+                        <input 
+                            type="text" 
+                            name="nama_mk" 
+                            id="nama_mk" 
+                            class="form-control @error('nama_mk') is-invalid @enderror" 
+                            value="{{ old('nama_mk') }}" 
+                            placeholder="Contoh: Pemrograman Berorientasi Objek"
+                            required
+                        >
+                        @error('nama_mk')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Baris 2: SKS & Semester -->
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.25rem;">
+                    <div class="form-group">
+                        <label for="sks" class="form-label">SKS <span style="color: var(--danger-600, red); font-weight: bold;">*</span></label>
+                        <input 
+                            type="number" 
+                            name="sks" 
+                            id="sks" 
+                            min="1" 
+                            max="6" 
+                            class="form-control @error('sks') is-invalid @enderror" 
+                            value="{{ old('sks', 3) }}" 
+                            required
+                        >
+                        @error('sks')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semester" class="form-label">Semester <span style="color: var(--danger-600, red); font-weight: bold;">*</span></label>
+                        <input 
+                            type="text" 
+                            name="semester" 
+                            id="semester" 
+                            class="form-control @error('semester') is-invalid @enderror" 
+                            value="{{ old('semester') }}" 
+                            placeholder="Contoh: Ganjil 2026/2027"
+                            required
+                        >
+                        @error('semester')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
 
                 <!-- Dosen Pengampu (Otomatis akun Dosen yang login) -->
                 <div class="form-group">
