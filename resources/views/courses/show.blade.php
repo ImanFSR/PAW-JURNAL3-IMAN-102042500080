@@ -36,7 +36,6 @@
                 </div>
             @endif
         </div>
-        TODO 8 : Tampilkan nama dan deskripsi mata kuliah.
         <!-- gunakan data dari variabel $course dan sintaks Blade. -->
         <!-- TODO 8 : Tampilkan nama dan deskripsi mata kuliah -->
         <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--slate-900); margin-bottom: 0.75rem; line-height: 1.3;">
